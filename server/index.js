@@ -9,7 +9,7 @@ const auth = require('./middleware/authorization')
 
 const connectDB = require('./config/db')
 
-const Guitarra = require('./models/Guitar')
+const Pizza = require('./models/Pizza')
 const Usuario = require('./models/User')
 
 
@@ -30,7 +30,7 @@ app.use(express.json());
 // MERCADO PAGO
 
 //const mercadopago = require("mercadopago")
-const { update } = require('./models/Guitar')
+const { update } = require('./models/Pizza')
 
 const mercadopago = new MercadoPagoConfig({
     access_token: "TEST-695027965126634-121802-510b23c7e4759300bfa01dc4bd7d8e09-309278269"
@@ -57,14 +57,14 @@ const mercadopago = new MercadoPagoConfig({
   
 // 3. RUTEO
 
-// A. GUITARRAS
+// A. Pizzas
 
-app.get("/obtener-guitarras", async (req, res) => {
+app.get("/pizzas", async (req, res) => {
     try {
-        const guitarras = await Guitarra.find({})
+        const pizzas = await Pizza.find({})
 
         res.json({
-            guitarras
+            pizzas
         })
 
     } catch (error) {
@@ -74,16 +74,16 @@ app.get("/obtener-guitarras", async (req, res) => {
     }
 })
 
-app.get("/obtener-guitarra/:id", async (req, res) => {
+app.get("/pizzas/:id", async (req, res) => {
 
     const { id } = req.params
 
     try {
         
-        const guitar = await Guitarra.findById(id)
+        const pizza = await Pizza.findById(id)
 
         res.json({
-            guitar
+            pizza
         })
 
     } catch (error) {
@@ -95,19 +95,19 @@ app.get("/obtener-guitarra/:id", async (req, res) => {
 
 })
 
-app.post("/crear-guitarra", async (req, res) => {
+app.post("/pizza", async (req, res) => {
 
     const {
         nombre,
         precio,
         imagen,
-        color } = req.body
+        descripcion } = req.body
 
     try {
 
-        const nuevaGuitarra = await Guitarra.create({ nombre, precio, imagen, color })
+        const nuevaPizza = await Guitarra.create({ nombre, precio, imagen, descripcion })
 
-        res.json(nuevaGuitarra)
+        res.json(nuevaPizza)
 
     } catch (error) {
 
@@ -119,19 +119,19 @@ app.post("/crear-guitarra", async (req, res) => {
     }
 })
 
-app.put("/actualizar-guitarra", async (req, res) => {
+app.put("/pizzas", async (req, res) => {
 
-    const { id, nombre, precio } = req.body
+    const { id, nombre, precio, descripcion } = req.body
 
     try {
-        const actualizacionGuitarra = await Guitarra.findByIdAndUpdate(id, { nombre, precio }, { new: true })
+        const actualizacionPizza = await Pizza.findByIdAndUpdate(id, { nombre, precio, descripcion }, { new: true })
 
-        res.json(actualizacionGuitarra)
+        res.json(actualizacionPizza)
 
     } catch (error) {
 
         res.status(500).json({
-            msg: "Hubo un error actualizando la guitarra"
+            msg: "Hubo un error actualizando la Pizza"
         })
 
     }
@@ -139,20 +139,20 @@ app.put("/actualizar-guitarra", async (req, res) => {
 
 })
 
-app.delete("/borrar-guitarra", async (req, res) => {
+app.delete("/pizzas", async (req, res) => {
 
     const { id } = req.body
 
     try {
 
-        const guitarraBorrada = await Guitarra.findByIdAndRemove({ _id: id })
+        const pizzaBorrada = await Pizza.findByIdAndRemove({ _id: id })
 
-        res.json(guitarraBorrada)
+        res.json(pizzaBorrada)
 
 
     } catch (error) {
         res.status(500).json({
-            msg: "Hubo un error borrando la guitarra especificada"
+            msg: "Hubo un error borrando la pizza especificada"
         })
     }
 
@@ -280,7 +280,7 @@ app.get("/usuario/verificar-usuario", auth, async (req, res) => {
         res.json({ user })
 
     } catch (error) {
-        // EN CASO DE HERROR DEVOLVEMOS UN MENSAJE CON EL ERROR
+        // EN CASO DE ERROR DEVOLVEMOS UN MENSAJE CON EL ERROR
         res.status(500).json({
             msg: "Hubo un error",
             error

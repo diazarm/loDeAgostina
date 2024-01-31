@@ -2,7 +2,7 @@
 const mongoose = require('mongoose')
 
 // 2. SCHEMA
-const guitarSchema = mongoose.Schema({
+const pizzaSchema = mongoose.Schema({
         nombre: {
             type: String, 
             required: true
@@ -11,7 +11,7 @@ const guitarSchema = mongoose.Schema({
             type: Number,
             required: true
         },
-        color: {
+        descripcion: {
             type: String,
             required: true
         },
@@ -26,7 +26,7 @@ const guitarSchema = mongoose.Schema({
 )
 
 // 3. MODELO
-const Guitar = mongoose.model('Guitar', guitarSchema)
+const Pizza = mongoose.model('Pizza', pizzaSchema)
 
 // 4. EXPORTACIÓN
-module.exports = Guitar
+module.exports = Pizza
