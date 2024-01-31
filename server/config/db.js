@@ -9,7 +9,7 @@ const connectDB = async () => {
             useUnifiedTopology: true
         })
 
-        console.log("Base de datos conectada")
+        console.log("db connected")
 
     } catch (error) {
         console.log(error)

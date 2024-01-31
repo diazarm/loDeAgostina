@@ -4,7 +4,7 @@ const app = express()
 const cors = require('cors')
 const bcryptjs = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-
+const {MercadoPagoConfig} = require('mercadopago')
 const auth = require('./middleware/authorization')
 
 const connectDB = require('./config/db')
@@ -29,12 +29,13 @@ app.use(express.json());
 
 // MERCADO PAGO
 
-const mercadopago = require("mercadopago")
+//const mercadopago = require("mercadopago")
 const { update } = require('./models/Guitar')
 
-mercadopago.configure({
+const mercadopago = new MercadoPagoConfig({
     access_token: "TEST-695027965126634-121802-510b23c7e4759300bfa01dc4bd7d8e09-309278269"
 })
+//const customerClient = new Customer(client);
 
 // let preference = {
 //     items: [
@@ -334,4 +335,4 @@ app.post("/mercadopago", async (req, res) => {
 
 
 // 4. SERVIDOR
-app.listen(process.env.PORT, () => console.log("El servidor está de pie"))
+app.listen(process.env.PORT, () => console.log(`Server listen at port ${process.env.PORT}`))
