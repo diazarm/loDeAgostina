@@ -105,14 +105,14 @@ app.post("/pizza", async (req, res) => {
 
     try {
 
-        const nuevaPizza = await Guitarra.create({ nombre, precio, imagen, descripcion })
+        const nuevaPizza = await Pizza.create({ nombre, precio, imagen, descripcion })
 
         res.json(nuevaPizza)
 
     } catch (error) {
 
         res.status(500).json({
-            msg: "Hubo un error creando la guitarra",
+            msg: "Hubo un error creando la Pizza",
             error
         })
 
@@ -274,6 +274,7 @@ app.post("/usuario/iniciar-sesion", async (req, res) => {
 // A LA RUTA PRINCIPAL
 app.get("/usuario/verificar-usuario", auth, async (req, res) => {
 
+    console.log("wea", auth);
     try {
         // CONFIRMAMOS QUE EL USUARIO EXISTA EN BASE DE DATOS Y RETORNAMOS SUS DATOS, EXCLUYENDO EL PASSWORD
         const user = await Usuario.findById(req.user.id).select('-password')
