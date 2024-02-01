@@ -1,4 +1,4 @@
-
+import React from 'react'
 import { Link } from 'react-router-dom'
 import BackgroundJumbotron from './../assets/men-723557_1920.jpg'
 import ListGuitars from './ListGuitars'
